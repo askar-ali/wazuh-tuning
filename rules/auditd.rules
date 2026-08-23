@@ -1,0 +1,9 @@
+# /etc/audit/rules.d/wazuh.rules - focused audit trail (not "log everything").
+-w /etc/passwd -p wa -k identity
+-w /etc/shadow -p wa -k identity
+-w /etc/sudoers -p wa -k privilege
+-w /etc/sudoers.d/ -p wa -k privilege
+-w /etc/ssh/sshd_config -p wa -k sshd
+-a always,exit -F arch=b64 -S execve -F euid=0 -F auid>=1000 -F auid!=unset -k root-exec
+# Exclude high-volume noise from trusted automation
+-a never,exit -F arch=b64 -F exe=/usr/bin/node_exporter
