@@ -1,0 +1,24 @@
+<group name="local,tuning,">
+
+  <!-- Downgrade FIM noise from package-manager activity (rule 550/553 family). -->
+  <rule id="100100" level="3">
+    <if_sid>550,553,554</if_sid>
+    <field name="file">^/usr/lib/python3|^/var/cache/apt</field>
+    <description>FIM change under package-managed paths (expected churn).</description>
+  </rule>
+
+  <!-- Escalate: changes to sudoers or sshd_config are always interesting. -->
+  <rule id="100110" level="12">
+    <if_sid>550,554</if_sid>
+    <field name="file">^/etc/sudoers|^/etc/ssh/sshd_config</field>
+    <description>Privileged configuration file changed.</description>
+  </rule>
+
+  <!-- Escalate: root exec by an interactive user (auditd key root-exec). -->
+  <rule id="100120" level="10">
+    <if_sid>80700</if_sid>
+    <field name="audit.key">root-exec</field>
+    <description>Command executed as root by an interactive user.</description>
+  </rule>
+
+</group>
