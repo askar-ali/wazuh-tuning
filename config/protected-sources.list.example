@@ -1,0 +1,3 @@
+# Sources that active-response must never block (CIDR or single address).
+192.0.2.0/28        # CI/CD worker nodes
+198.51.100.10       # monitoring / bastion
