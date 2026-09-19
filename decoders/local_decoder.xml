@@ -1,0 +1,10 @@
+<!-- Sample app log: "webapp: auth user=alice ip=203.0.113.9 result=failed" -->
+<decoder name="webapp">
+  <prematch>^webapp: </prematch>
+</decoder>
+
+<decoder name="webapp-auth">
+  <parent>webapp</parent>
+  <regex>auth user=(\S+) ip=(\S+) result=(\w+)</regex>
+  <order>dstuser, srcip, status</order>
+</decoder>

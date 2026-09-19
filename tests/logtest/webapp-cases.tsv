@@ -1,0 +1,3 @@
+# log line<TAB>expected rule id on a Wazuh manager
+webapp: auth user=alice ip=203.0.113.9 result=ok	100200
+webapp: auth user=alice ip=203.0.113.9 result=failed	100201
