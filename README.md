@@ -20,7 +20,24 @@ config/ossec-agent-fim.conf    FIM scoping (what to watch, what to ignore)
 config/active-response.conf    safe active-response with a whitelist
 rules/local_rules.xml          noise-reduction and escalation rules
 rules/auditd.rules             auditd rules for the audit trail
+decoders/local_decoder.xml     sample app-log decoder (webapp auth)
+active-response/safe-block.sh  active response that never blocks protected sources
+config/agent-groups/           shared agent config (ci-workers: scoped FIM)
 scripts/top-noisy-rules.sh     find noisy rules from alerts.json
+scripts/alert-report.py        before/after alert volume per rule
+scripts/lint-rules.py          lint rule ids/levels and auditd rule order
 scripts/check-xml.py           well-formedness check for the XML files
+scripts/logtest.sh             check decoders/rules on a manager (wazuh-logtest)
 docs/tuning-process.md
 ```
+
+## Test
+
+```bash
+make test    # unit tests + safe-block behavioural test
+make check   # XML well-formedness, rule lint, shellcheck
+```
+
+Verified locally: lint, unit tests, safe-block behaviour. Not verified: decoder/rule matching
+against a real Wazuh manager (`scripts/logtest.sh` is for that), and rule ids/levels should be
+checked against your Wazuh version.
